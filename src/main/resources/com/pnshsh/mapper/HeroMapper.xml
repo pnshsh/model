@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pnshsh.mapper.HeroMapper">
+  <resultMap id="BaseResultMap" type="com.pnshsh.model.Hero">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="GENDER" jdbcType="VARCHAR" property="gender" />
+    <result column="AGE" jdbcType="INTEGER" property="age" />
+    <result column="NATIONALITY" jdbcType="VARCHAR" property="nationality" />
+    <result column="WEPON" jdbcType="VARCHAR" property="wepon" />
+    <result column="SKIL" jdbcType="VARCHAR" property="skil" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, NAME, GENDER, AGE, NATIONALITY, WEPON, SKIL
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hero
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hero
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.pnshsh.model.Hero">
+    insert into hero (ID, NAME, GENDER, 
+      AGE, NATIONALITY, WEPON, 
+      SKIL)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{nationality,jdbcType=VARCHAR}, #{wepon,jdbcType=VARCHAR}, 
+      #{skil,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pnshsh.model.Hero">
+    insert into hero
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="gender != null">
+        GENDER,
+      </if>
+      <if test="age != null">
+        AGE,
+      </if>
+      <if test="nationality != null">
+        NATIONALITY,
+      </if>
+      <if test="wepon != null">
+        WEPON,
+      </if>
+      <if test="skil != null">
+        SKIL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="nationality != null">
+        #{nationality,jdbcType=VARCHAR},
+      </if>
+      <if test="wepon != null">
+        #{wepon,jdbcType=VARCHAR},
+      </if>
+      <if test="skil != null">
+        #{skil,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pnshsh.model.Hero">
+    update hero
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        GENDER = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        AGE = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="nationality != null">
+        NATIONALITY = #{nationality,jdbcType=VARCHAR},
+      </if>
+      <if test="wepon != null">
+        WEPON = #{wepon,jdbcType=VARCHAR},
+      </if>
+      <if test="skil != null">
+        SKIL = #{skil,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pnshsh.model.Hero">
+    update hero
+    set NAME = #{name,jdbcType=VARCHAR},
+      GENDER = #{gender,jdbcType=VARCHAR},
+      AGE = #{age,jdbcType=INTEGER},
+      NATIONALITY = #{nationality,jdbcType=VARCHAR},
+      WEPON = #{wepon,jdbcType=VARCHAR},
+      SKIL = #{skil,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
